@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0050)file:///C:/Users/Lenovo/Downloads/trancia_1_1.html -->
+<!-- saved from url=(0050)file:///C:/Users/Lenovo/Downloads/trancia_1_2.html -->
 <html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -16,7 +16,12 @@
     --criativo: #E01A1A;
     --roteiro: #B01010;
     --gravacao: #7A0000;
-    --pessoal: #333;
+    --pessoal: #333333;
+    --bjj: #1565C0;
+    --igreja: #C62828;
+    --ab: #2E7D32;
+    --et: #6A1B9A;
+    --folga: #455A64;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -29,7 +34,6 @@
     overflow-x: hidden;
   }
 
-  /* HEADER */
   header {
     display: flex;
     align-items: center;
@@ -83,7 +87,6 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    flex-wrap: wrap;
   }
 
   .sync-status {
@@ -106,7 +109,6 @@
     font-size: 14px;
     position: relative;
   }
-
   .notif-badge {
     position: absolute; top: -4px; right: -4px;
     width: 14px; height: 14px;
@@ -116,26 +118,26 @@
     font-weight: 700;
   }
 
-  /* LEGEND BAR */
   .legend-bar {
     display: flex;
-    gap: 12px;
+    gap: 10px;
     padding: 8px 16px;
     border-bottom: 2px solid var(--black);
     flex-wrap: wrap;
     background: var(--white);
   }
-
   .legend-item {
     display: flex; align-items: center; gap: 4px;
     font-size: 10px; font-weight: 600; letter-spacing: 1px;
   }
   .legend-dot { width: 12px; height: 12px; border-radius: 2px; }
+  .legend-dot.split {
+    background: linear-gradient(135deg, var(--ab) 50%, var(--et) 50%);
+  }
 
-  /* STATS BAR */
   .stats-bar {
     display: flex;
-    gap: 16px;
+    gap: 12px;
     padding: 8px 16px;
     border-bottom: 2px solid var(--black);
     background: var(--black);
@@ -143,17 +145,15 @@
     flex-wrap: wrap;
     overflow-x: auto;
   }
-
   .stat {
-    display: flex; align-items: center; gap: 6px;
+    display: flex; align-items: center; gap: 4px;
     font-size: 11px;
     font-family: 'Bebas Neue', sans-serif;
     letter-spacing: 1px;
     white-space: nowrap;
   }
-  .stat-val { color: var(--red); font-size: 16px; }
+  .stat-val { color: var(--red); font-size: 15px; }
 
-  /* GRID WRAPPER */
   .grid-wrapper {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -174,10 +174,19 @@
     text-align: center;
     background: var(--black);
     color: var(--white);
+    cursor: pointer;
+    position: relative;
   }
+  .day-header:hover { background: #222; }
   .day-header.today { background: var(--red); }
   .day-header .day-name { font-family: 'Bebas Neue', sans-serif; font-size: 13px; letter-spacing: 1px; }
   .day-header .day-date { font-size: 9px; font-weight: 300; opacity: 0.7; margin-top: 1px; }
+  .day-header .block-all-btn {
+    font-size: 8px;
+    opacity: 0.6;
+    margin-top: 2px;
+    letter-spacing: 0.5px;
+  }
 
   .time-col-header {
     border-right: 2px solid var(--black);
@@ -206,30 +215,46 @@
     position: relative;
     transition: background 0.1s;
     display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
   }
   .cell:hover { background: var(--gray-light); }
+
+  /* Single types */
   .cell.type-C { background: var(--criativo) !important; }
   .cell.type-R { background: var(--roteiro) !important; }
   .cell.type-G { background: var(--gravacao) !important; }
   .cell.type-P { background: var(--pessoal) !important; }
+  .cell.type-BJJ { background: var(--bjj) !important; }
+  .cell.type-IBI { background: var(--igreja) !important; }
+  .cell.type-AB { background: var(--ab) !important; }
+  .cell.type-ET { background: var(--et) !important; }
+  .cell.type-FOLGA { background: var(--folga) !important; }
+
+  /* Split type AB+ET */
+  .cell.type-ABET {
+    background: linear-gradient(135deg, var(--ab) 50%, var(--et) 50%) !important;
+  }
 
   .cell-label {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 13px;
+    font-size: 11px;
     letter-spacing: 1px;
     color: var(--white);
     pointer-events: none;
     user-select: none;
+    text-align: center;
+    line-height: 1.1;
+    padding: 2px;
+    z-index: 1;
   }
-  .cell.type-C .cell-label::before { content: 'C'; }
-  .cell.type-R .cell-label::before { content: 'R'; }
-  .cell.type-G .cell-label::before { content: 'G'; }
-  .cell.type-P .cell-label::before { content: 'P'; }
+
+  /* FOLGA day overlay */
+  .cell.type-FOLGA .cell-label { font-size: 9px; }
 
   /* MODAL */
   .modal-overlay {
     position: fixed; inset: 0;
-    background: rgba(0,0,0,0.7);
+    background: rgba(0,0,0,0.75);
     z-index: 200;
     display: none; align-items: center; justify-content: center;
     padding: 16px;
@@ -239,9 +264,11 @@
   .modal {
     background: var(--white);
     border: 3px solid var(--black);
-    padding: 24px;
+    padding: 20px;
     width: 100%;
-    max-width: 340px;
+    max-width: 380px;
+    max-height: 90vh;
+    overflow-y: auto;
     animation: modalIn 0.2s ease;
   }
   @keyframes modalIn {
@@ -251,31 +278,52 @@
 
   .modal h2 {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 24px; letter-spacing: 3px; margin-bottom: 4px;
+    font-size: 22px; letter-spacing: 3px; margin-bottom: 4px;
   }
-  .modal .modal-time { font-size: 12px; color: var(--gray-dark); margin-bottom: 20px; font-weight: 500; }
+  .modal .modal-time { font-size: 12px; color: var(--gray-dark); margin-bottom: 16px; font-weight: 500; }
+
+  .modal-section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--gray-dark);
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--gray-mid);
+    padding-bottom: 4px;
+  }
 
   .modal-types {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 8px; margin-bottom: 16px;
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 6px; margin-bottom: 16px;
   }
 
   .type-btn {
-    padding: 12px; border: 2px solid var(--black);
+    padding: 8px 4px;
+    border: 2px solid var(--black);
     background: var(--white); cursor: pointer;
-    font-family: 'Bebas Neue', sans-serif; font-size: 15px;
-    letter-spacing: 2px; transition: all 0.15s; text-align: center;
+    font-family: 'Bebas Neue', sans-serif; font-size: 12px;
+    letter-spacing: 1px; transition: all 0.15s; text-align: center;
+    line-height: 1.2;
   }
-  .type-btn:hover, .type-btn.active { background: var(--red); color: var(--white); border-color: var(--red); }
-  .type-btn.btn-R:hover, .type-btn.btn-R.active { background: var(--roteiro); border-color: var(--roteiro); }
-  .type-btn.btn-G:hover, .type-btn.btn-G.active { background: var(--gravacao); border-color: var(--gravacao); }
-  .type-btn.btn-P:hover, .type-btn.btn-P.active { background: var(--pessoal); border-color: var(--pessoal); }
+  .type-btn:hover { opacity: 0.85; }
+  .type-btn.active { color: var(--white); border-color: transparent; }
+
+  .type-btn.btn-C { } .type-btn.btn-C.active, .type-btn.btn-C:hover { background: var(--criativo); color: white; border-color: var(--criativo); }
+  .type-btn.btn-R.active, .type-btn.btn-R:hover { background: var(--roteiro); color: white; border-color: var(--roteiro); }
+  .type-btn.btn-G.active, .type-btn.btn-G:hover { background: var(--gravacao); color: white; border-color: var(--gravacao); }
+  .type-btn.btn-P.active, .type-btn.btn-P:hover { background: var(--pessoal); color: white; border-color: var(--pessoal); }
+  .type-btn.btn-BJJ.active, .type-btn.btn-BJJ:hover { background: var(--bjj); color: white; border-color: var(--bjj); }
+  .type-btn.btn-IBI.active, .type-btn.btn-IBI:hover { background: var(--igreja); color: white; border-color: var(--igreja); }
+  .type-btn.btn-AB.active, .type-btn.btn-AB:hover { background: var(--ab); color: white; border-color: var(--ab); }
+  .type-btn.btn-ET.active, .type-btn.btn-ET:hover { background: var(--et); color: white; border-color: var(--et); }
+  .type-btn.btn-ABET.active, .type-btn.btn-ABET:hover { background: linear-gradient(135deg, var(--ab) 50%, var(--et) 50%); color: white; border-color: var(--ab); }
+  .type-btn.btn-FOLGA.active, .type-btn.btn-FOLGA:hover { background: var(--folga); color: white; border-color: var(--folga); }
 
   .modal-note {
     width: 100%; border: 2px solid var(--black);
     padding: 8px 10px; font-family: 'Inter', sans-serif;
     font-size: 13px; resize: none; outline: none;
-    margin-bottom: 16px; height: 60px;
+    margin-bottom: 14px; height: 55px;
   }
 
   .modal-actions { display: flex; gap: 8px; }
@@ -289,16 +337,60 @@
   }
   .btn-save:hover { background: var(--red); border-color: var(--red); }
   .btn-clear {
-    padding: 10px 14px; background: var(--white); color: var(--black);
+    padding: 10px 12px; background: var(--white); color: var(--black);
     border: 2px solid var(--black);
     font-family: 'Bebas Neue', sans-serif; font-size: 16px;
     letter-spacing: 1px; cursor: pointer;
   }
   .btn-cancel {
-    padding: 10px 14px; background: var(--white); color: var(--gray-dark);
+    padding: 10px 12px; background: var(--white); color: var(--gray-dark);
     border: 2px solid var(--gray-mid);
     font-family: 'Bebas Neue', sans-serif; font-size: 16px; cursor: pointer;
   }
+
+  /* DAY BLOCK MODAL */
+  .day-modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.75);
+    z-index: 200;
+    display: none; align-items: center; justify-content: center;
+    padding: 16px;
+  }
+  .day-modal-overlay.open { display: flex; }
+  .day-modal {
+    background: var(--white);
+    border: 3px solid var(--black);
+    padding: 20px;
+    width: 100%;
+    max-width: 340px;
+    animation: modalIn 0.2s ease;
+  }
+  .day-modal h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px; letter-spacing: 3px; margin-bottom: 4px;
+  }
+  .day-modal .modal-time { font-size: 12px; color: var(--gray-dark); margin-bottom: 16px; }
+  .day-modal-types {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 8px; margin-bottom: 16px;
+  }
+  .day-type-btn {
+    padding: 12px 8px;
+    border: 2px solid var(--black);
+    background: var(--white); cursor: pointer;
+    font-family: 'Bebas Neue', sans-serif; font-size: 13px;
+    letter-spacing: 1px; transition: all 0.15s; text-align: center;
+  }
+  .day-type-btn:hover { opacity: 0.85; }
+  .day-type-btn.active { color: var(--white); border-color: transparent; }
+  .day-type-btn.dBtn-BJJ.active, .day-type-btn.dBtn-BJJ:hover { background: var(--bjj); color: white; border-color: var(--bjj); }
+  .day-type-btn.dBtn-IBI.active, .day-type-btn.dBtn-IBI:hover { background: var(--igreja); color: white; border-color: var(--igreja); }
+  .day-type-btn.dBtn-AB.active, .day-type-btn.dBtn-AB:hover { background: var(--ab); color: white; border-color: var(--ab); }
+  .day-type-btn.dBtn-ET.active, .day-type-btn.dBtn-ET:hover { background: var(--et); color: white; border-color: var(--et); }
+  .day-type-btn.dBtn-ABET.active, .day-type-btn.dBtn-ABET:hover { background: linear-gradient(135deg, var(--ab) 50%, var(--et) 50%); color: white; border-color: var(--ab); }
+  .day-type-btn.dBtn-FOLGA.active, .day-type-btn.dBtn-FOLGA:hover { background: var(--folga); color: white; border-color: var(--folga); }
+  .day-type-btn.dBtn-P.active, .day-type-btn.dBtn-P:hover { background: var(--pessoal); color: white; border-color: var(--pessoal); }
+  .day-type-btn.dBtn-C.active, .day-type-btn.dBtn-C:hover { background: var(--criativo); color: white; border-color: var(--criativo); }
 
   /* NOTIF PANEL */
   .notif-panel {
@@ -333,46 +425,89 @@
   </div>
   <div class="header-right">
     <div class="sync-status online" id="syncStatus">● ONLINE</div>
-    <button class="notif-btn" onclick="toggleNotif()">
-      🔔<div class="notif-badge" id="notifBadge">0</div>
-    </button>
+    <button class="notif-btn" onclick="toggleNotif()">🔔<div class="notif-badge" id="notifBadge">0</div></button>
   </div>
 </header>
 
 <div class="legend-bar">
-  <div class="legend-item"><div class="legend-dot" style="background:var(--criativo)"></div>C — CRIATIVO</div>
-  <div class="legend-item"><div class="legend-dot" style="background:var(--roteiro)"></div>R — ROTEIRO</div>
-  <div class="legend-item"><div class="legend-dot" style="background:var(--gravacao)"></div>G — GRAVAÇÃO</div>
-  <div class="legend-item"><div class="legend-dot" style="background:var(--pessoal)"></div>P — PESSOAL</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--criativo)"></div>C</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--roteiro)"></div>R</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--gravacao)"></div>G</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--pessoal)"></div>P</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--bjj)"></div>BJJ</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--igreja)"></div>IBI</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--ab)"></div>AB</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--et)"></div>ET</div>
+  <div class="legend-item"><div class="legend-dot split"></div>AB+ET</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--folga)"></div>FOLGA</div>
 </div>
 
 <div class="stats-bar">
-  <div class="stat"><span class="stat-val" id="statC">0</span> C</div>
-  <div class="stat"><span class="stat-val" id="statR">0</span> R</div>
-  <div class="stat"><span class="stat-val" id="statG">0</span> G</div>
-  <div class="stat"><span class="stat-val" id="statP">0</span> P</div>
-  <div class="stat"><span class="stat-val" id="statFree">105</span> HRS LIVRES</div>
+  <div class="stat"><span class="stat-val" id="statC">0</span>C</div>
+  <div class="stat"><span class="stat-val" id="statR">0</span>R</div>
+  <div class="stat"><span class="stat-val" id="statG">0</span>G</div>
+  <div class="stat"><span class="stat-val" id="statBJJ">0</span>BJJ</div>
+  <div class="stat"><span class="stat-val" id="statAB">0</span>AB</div>
+  <div class="stat"><span class="stat-val" id="statET">0</span>ET</div>
+  <div class="stat"><span class="stat-val" id="statFree">89</span>LIVRES</div>
 </div>
 
 <div class="grid-wrapper">
-  <div class="grid" id="agendaGrid"><div class="time-col-header"></div><div class="day-header"><div class="day-name">SEG</div><div class="day-date">27/04</div></div><div class="day-header"><div class="day-name">TER</div><div class="day-date">28/04</div></div><div class="day-header"><div class="day-name">QUA</div><div class="day-date">29/04</div></div><div class="day-header"><div class="day-name">QUI</div><div class="day-date">30/04</div></div><div class="day-header"><div class="day-name">SEX</div><div class="day-date">01/05</div></div><div class="day-header today"><div class="day-name">SÁB</div><div class="day-date">02/05</div></div><div class="day-header"><div class="day-name">DOM</div><div class="day-date">03/05</div></div><div class="time-label">8h</div><div class="cell" data-key="w2026-04-27_0_8"></div><div class="cell" data-key="w2026-04-27_1_8"></div><div class="cell" data-key="w2026-04-27_2_8"></div><div class="cell" data-key="w2026-04-27_3_8"></div><div class="cell" data-key="w2026-04-27_4_8"></div><div class="cell" data-key="w2026-04-27_5_8"></div><div class="cell" data-key="w2026-04-27_6_8"></div><div class="time-label">9h</div><div class="cell" data-key="w2026-04-27_0_9"></div><div class="cell" data-key="w2026-04-27_1_9"></div><div class="cell" data-key="w2026-04-27_2_9"></div><div class="cell" data-key="w2026-04-27_3_9"></div><div class="cell" data-key="w2026-04-27_4_9"></div><div class="cell" data-key="w2026-04-27_5_9"></div><div class="cell" data-key="w2026-04-27_6_9"></div><div class="time-label">10h</div><div class="cell" data-key="w2026-04-27_0_10"></div><div class="cell" data-key="w2026-04-27_1_10"></div><div class="cell" data-key="w2026-04-27_2_10"></div><div class="cell" data-key="w2026-04-27_3_10"></div><div class="cell" data-key="w2026-04-27_4_10"></div><div class="cell" data-key="w2026-04-27_5_10"></div><div class="cell" data-key="w2026-04-27_6_10"></div><div class="time-label">11h</div><div class="cell" data-key="w2026-04-27_0_11"></div><div class="cell" data-key="w2026-04-27_1_11"></div><div class="cell" data-key="w2026-04-27_2_11"></div><div class="cell" data-key="w2026-04-27_3_11"></div><div class="cell" data-key="w2026-04-27_4_11"></div><div class="cell" data-key="w2026-04-27_5_11"></div><div class="cell" data-key="w2026-04-27_6_11"></div><div class="time-label">12h</div><div class="cell" data-key="w2026-04-27_0_12"></div><div class="cell" data-key="w2026-04-27_1_12"></div><div class="cell" data-key="w2026-04-27_2_12"></div><div class="cell" data-key="w2026-04-27_3_12"></div><div class="cell" data-key="w2026-04-27_4_12"></div><div class="cell" data-key="w2026-04-27_5_12"></div><div class="cell" data-key="w2026-04-27_6_12"></div><div class="time-label">13h</div><div class="cell" data-key="w2026-04-27_0_13"></div><div class="cell" data-key="w2026-04-27_1_13"></div><div class="cell" data-key="w2026-04-27_2_13"></div><div class="cell" data-key="w2026-04-27_3_13"></div><div class="cell" data-key="w2026-04-27_4_13"></div><div class="cell" data-key="w2026-04-27_5_13"></div><div class="cell" data-key="w2026-04-27_6_13"></div><div class="time-label">14h</div><div class="cell" data-key="w2026-04-27_0_14"></div><div class="cell" data-key="w2026-04-27_1_14"></div><div class="cell" data-key="w2026-04-27_2_14"></div><div class="cell" data-key="w2026-04-27_3_14"></div><div class="cell" data-key="w2026-04-27_4_14"></div><div class="cell" data-key="w2026-04-27_5_14"></div><div class="cell" data-key="w2026-04-27_6_14"></div><div class="time-label">15h</div><div class="cell" data-key="w2026-04-27_0_15"></div><div class="cell" data-key="w2026-04-27_1_15"></div><div class="cell" data-key="w2026-04-27_2_15"></div><div class="cell" data-key="w2026-04-27_3_15"></div><div class="cell" data-key="w2026-04-27_4_15"></div><div class="cell" data-key="w2026-04-27_5_15"></div><div class="cell" data-key="w2026-04-27_6_15"></div><div class="time-label">16h</div><div class="cell" data-key="w2026-04-27_0_16"></div><div class="cell" data-key="w2026-04-27_1_16"></div><div class="cell" data-key="w2026-04-27_2_16"></div><div class="cell" data-key="w2026-04-27_3_16"></div><div class="cell" data-key="w2026-04-27_4_16"></div><div class="cell" data-key="w2026-04-27_5_16"></div><div class="cell" data-key="w2026-04-27_6_16"></div><div class="time-label">17h</div><div class="cell" data-key="w2026-04-27_0_17"></div><div class="cell" data-key="w2026-04-27_1_17"></div><div class="cell" data-key="w2026-04-27_2_17"></div><div class="cell" data-key="w2026-04-27_3_17"></div><div class="cell" data-key="w2026-04-27_4_17"></div><div class="cell" data-key="w2026-04-27_5_17"></div><div class="cell" data-key="w2026-04-27_6_17"></div><div class="time-label">18h</div><div class="cell" data-key="w2026-04-27_0_18"></div><div class="cell" data-key="w2026-04-27_1_18"></div><div class="cell" data-key="w2026-04-27_2_18"></div><div class="cell" data-key="w2026-04-27_3_18"></div><div class="cell" data-key="w2026-04-27_4_18"></div><div class="cell" data-key="w2026-04-27_5_18"></div><div class="cell" data-key="w2026-04-27_6_18"></div><div class="time-label">19h</div><div class="cell" data-key="w2026-04-27_0_19"></div><div class="cell" data-key="w2026-04-27_1_19"></div><div class="cell" data-key="w2026-04-27_2_19"></div><div class="cell" data-key="w2026-04-27_3_19"></div><div class="cell" data-key="w2026-04-27_4_19"></div><div class="cell" data-key="w2026-04-27_5_19"></div><div class="cell" data-key="w2026-04-27_6_19"></div><div class="time-label">20h</div><div class="cell" data-key="w2026-04-27_0_20"></div><div class="cell" data-key="w2026-04-27_1_20"></div><div class="cell" data-key="w2026-04-27_2_20"></div><div class="cell" data-key="w2026-04-27_3_20"></div><div class="cell" data-key="w2026-04-27_4_20"></div><div class="cell" data-key="w2026-04-27_5_20"></div><div class="cell" data-key="w2026-04-27_6_20"></div><div class="time-label">21h</div><div class="cell" data-key="w2026-04-27_0_21"></div><div class="cell" data-key="w2026-04-27_1_21"></div><div class="cell" data-key="w2026-04-27_2_21"></div><div class="cell" data-key="w2026-04-27_3_21"></div><div class="cell" data-key="w2026-04-27_4_21"></div><div class="cell" data-key="w2026-04-27_5_21"></div><div class="cell" data-key="w2026-04-27_6_21"></div><div class="time-label">22h</div><div class="cell" data-key="w2026-04-27_0_22"></div><div class="cell" data-key="w2026-04-27_1_22"></div><div class="cell" data-key="w2026-04-27_2_22"></div><div class="cell" data-key="w2026-04-27_3_22"></div><div class="cell" data-key="w2026-04-27_4_22"></div><div class="cell" data-key="w2026-04-27_5_22"></div><div class="cell" data-key="w2026-04-27_6_22"></div></div>
+  <div class="grid" id="agendaGrid"><div class="time-col-header"></div><div class="day-header"><div class="day-name">SEG</div><div class="day-date">27/04</div><div class="block-all-btn">▦ DIA TODO</div></div><div class="day-header"><div class="day-name">TER</div><div class="day-date">28/04</div><div class="block-all-btn">▦ DIA TODO</div></div><div class="day-header"><div class="day-name">QUA</div><div class="day-date">29/04</div><div class="block-all-btn">▦ DIA TODO</div></div><div class="day-header"><div class="day-name">QUI</div><div class="day-date">30/04</div><div class="block-all-btn">▦ DIA TODO</div></div><div class="day-header"><div class="day-name">SEX</div><div class="day-date">01/05</div><div class="block-all-btn">▦ DIA TODO</div></div><div class="day-header today"><div class="day-name">SÁB</div><div class="day-date">02/05</div><div class="block-all-btn">▦ DIA TODO</div></div><div class="day-header"><div class="day-name">DOM</div><div class="day-date">03/05</div><div class="block-all-btn">▦ DIA TODO</div></div><div class="time-label">8h</div><div class="cell" data-key="w2026-04-27_0_8"></div><div class="cell" data-key="w2026-04-27_1_8"></div><div class="cell" data-key="w2026-04-27_2_8"></div><div class="cell" data-key="w2026-04-27_3_8"></div><div class="cell" data-key="w2026-04-27_4_8"></div><div class="cell" data-key="w2026-04-27_5_8"></div><div class="cell" data-key="w2026-04-27_6_8"></div><div class="time-label">9h</div><div class="cell marked type-P" data-key="w2026-04-27_0_9"><div class="cell-label">P</div></div><div class="cell marked type-P" data-key="w2026-04-27_1_9"><div class="cell-label">P</div></div><div class="cell marked type-P" data-key="w2026-04-27_2_9"><div class="cell-label">P</div></div><div class="cell marked type-P" data-key="w2026-04-27_3_9"><div class="cell-label">P</div></div><div class="cell marked type-P" data-key="w2026-04-27_4_9"><div class="cell-label">P</div></div><div class="cell" data-key="w2026-04-27_5_9"></div><div class="cell marked type-P" data-key="w2026-04-27_6_9"><div class="cell-label">P</div></div><div class="time-label">10h</div><div class="cell" data-key="w2026-04-27_0_10"></div><div class="cell" data-key="w2026-04-27_1_10"></div><div class="cell" data-key="w2026-04-27_2_10"></div><div class="cell" data-key="w2026-04-27_3_10"></div><div class="cell" data-key="w2026-04-27_4_10"></div><div class="cell" data-key="w2026-04-27_5_10"></div><div class="cell marked type-P" data-key="w2026-04-27_6_10"><div class="cell-label">P</div></div><div class="time-label">11h</div><div class="cell" data-key="w2026-04-27_0_11"></div><div class="cell" data-key="w2026-04-27_1_11"></div><div class="cell" data-key="w2026-04-27_2_11"></div><div class="cell" data-key="w2026-04-27_3_11"></div><div class="cell" data-key="w2026-04-27_4_11"></div><div class="cell" data-key="w2026-04-27_5_11"></div><div class="cell" data-key="w2026-04-27_6_11"></div><div class="time-label">12h</div><div class="cell" data-key="w2026-04-27_0_12"></div><div class="cell" data-key="w2026-04-27_1_12"></div><div class="cell" data-key="w2026-04-27_2_12"></div><div class="cell" data-key="w2026-04-27_3_12"></div><div class="cell" data-key="w2026-04-27_4_12"></div><div class="cell" data-key="w2026-04-27_5_12"></div><div class="cell" data-key="w2026-04-27_6_12"></div><div class="time-label">13h</div><div class="cell" data-key="w2026-04-27_0_13"></div><div class="cell" data-key="w2026-04-27_1_13"></div><div class="cell" data-key="w2026-04-27_2_13"></div><div class="cell" data-key="w2026-04-27_3_13"></div><div class="cell" data-key="w2026-04-27_4_13"></div><div class="cell" data-key="w2026-04-27_5_13"></div><div class="cell" data-key="w2026-04-27_6_13"></div><div class="time-label">14h</div><div class="cell" data-key="w2026-04-27_0_14"></div><div class="cell" data-key="w2026-04-27_1_14"></div><div class="cell" data-key="w2026-04-27_2_14"></div><div class="cell" data-key="w2026-04-27_3_14"></div><div class="cell" data-key="w2026-04-27_4_14"></div><div class="cell" data-key="w2026-04-27_5_14"></div><div class="cell" data-key="w2026-04-27_6_14"></div><div class="time-label">15h</div><div class="cell" data-key="w2026-04-27_0_15"></div><div class="cell" data-key="w2026-04-27_1_15"></div><div class="cell" data-key="w2026-04-27_2_15"></div><div class="cell" data-key="w2026-04-27_3_15"></div><div class="cell" data-key="w2026-04-27_4_15"></div><div class="cell" data-key="w2026-04-27_5_15"></div><div class="cell" data-key="w2026-04-27_6_15"></div><div class="time-label">16h</div><div class="cell marked type-P" data-key="w2026-04-27_0_16"><div class="cell-label">P</div></div><div class="cell" data-key="w2026-04-27_1_16"></div><div class="cell" data-key="w2026-04-27_2_16"></div><div class="cell" data-key="w2026-04-27_3_16"></div><div class="cell" data-key="w2026-04-27_4_16"></div><div class="cell" data-key="w2026-04-27_5_16"></div><div class="cell" data-key="w2026-04-27_6_16"></div><div class="time-label">17h</div><div class="cell marked type-P" data-key="w2026-04-27_0_17"><div class="cell-label">P</div></div><div class="cell" data-key="w2026-04-27_1_17"></div><div class="cell marked type-P" data-key="w2026-04-27_2_17"><div class="cell-label">P</div></div><div class="cell" data-key="w2026-04-27_3_17"></div><div class="cell marked type-P" data-key="w2026-04-27_4_17"><div class="cell-label">P</div></div><div class="cell" data-key="w2026-04-27_5_17"></div><div class="cell" data-key="w2026-04-27_6_17"></div><div class="time-label">18h</div><div class="cell" data-key="w2026-04-27_0_18"></div><div class="cell" data-key="w2026-04-27_1_18"></div><div class="cell" data-key="w2026-04-27_2_18"></div><div class="cell" data-key="w2026-04-27_3_18"></div><div class="cell" data-key="w2026-04-27_4_18"></div><div class="cell" data-key="w2026-04-27_5_18"></div><div class="cell marked type-P" data-key="w2026-04-27_6_18"><div class="cell-label">P</div></div><div class="time-label">19h</div><div class="cell" data-key="w2026-04-27_0_19"></div><div class="cell marked type-P" data-key="w2026-04-27_1_19"><div class="cell-label">P</div></div><div class="cell marked type-P" data-key="w2026-04-27_2_19"><div class="cell-label">P</div></div><div class="cell" data-key="w2026-04-27_3_19"></div><div class="cell" data-key="w2026-04-27_4_19"></div><div class="cell" data-key="w2026-04-27_5_19"></div><div class="cell marked type-P" data-key="w2026-04-27_6_19"><div class="cell-label">P</div></div><div class="time-label">20h</div><div class="cell" data-key="w2026-04-27_0_20"></div><div class="cell" data-key="w2026-04-27_1_20"></div><div class="cell" data-key="w2026-04-27_2_20"></div><div class="cell" data-key="w2026-04-27_3_20"></div><div class="cell marked type-P" data-key="w2026-04-27_4_20"><div class="cell-label">P</div></div><div class="cell" data-key="w2026-04-27_5_20"></div><div class="cell" data-key="w2026-04-27_6_20"></div><div class="time-label">21h</div><div class="cell" data-key="w2026-04-27_0_21"></div><div class="cell" data-key="w2026-04-27_1_21"></div><div class="cell" data-key="w2026-04-27_2_21"></div><div class="cell" data-key="w2026-04-27_3_21"></div><div class="cell" data-key="w2026-04-27_4_21"></div><div class="cell" data-key="w2026-04-27_5_21"></div><div class="cell" data-key="w2026-04-27_6_21"></div><div class="time-label">22h</div><div class="cell" data-key="w2026-04-27_0_22"></div><div class="cell" data-key="w2026-04-27_1_22"></div><div class="cell" data-key="w2026-04-27_2_22"></div><div class="cell" data-key="w2026-04-27_3_22"></div><div class="cell" data-key="w2026-04-27_4_22"></div><div class="cell" data-key="w2026-04-27_5_22"></div><div class="cell" data-key="w2026-04-27_6_22"></div></div>
 </div>
 
+<!-- CELL MODAL -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
-    <h2>MARCAR</h2>
+    <h2>MARCAR HORÁRIO</h2>
     <div class="modal-time" id="modalTime"></div>
-    <div class="modal-types">
-      <button class="type-btn btn-C" onclick="selectType(&#39;C&#39;)">C — CRIATIVO</button>
-      <button class="type-btn btn-R" onclick="selectType(&#39;R&#39;)">R — ROTEIRO</button>
-      <button class="type-btn btn-G" onclick="selectType(&#39;G&#39;)">G — GRAVAÇÃO</button>
-      <button class="type-btn btn-P" onclick="selectType(&#39;P&#39;)">P — PESSOAL</button>
+    <div class="modal-section-title">PRODUÇÃO DE CONTEÚDO</div>
+    <div class="modal-types" style="grid-template-columns:1fr 1fr 1fr;margin-bottom:10px;">
+      <button class="type-btn btn-C" onclick="selectType(&#39;C&#39;)">C<br>CRIATIVO</button>
+      <button class="type-btn btn-R" onclick="selectType(&#39;R&#39;)">R<br>ROTEIRO</button>
+      <button class="type-btn btn-G" onclick="selectType(&#39;G&#39;)">G<br>GRAVAÇÃO</button>
+    </div>
+    <div class="modal-section-title">TRABALHO</div>
+    <div class="modal-types" style="grid-template-columns:1fr 1fr 1fr;margin-bottom:10px;">
+      <button class="type-btn btn-AB" onclick="selectType(&#39;AB&#39;)">AB<br>MÍDIA</button>
+      <button class="type-btn btn-ET" onclick="selectType(&#39;ET&#39;)">ET<br>TRANÇAS</button>
+      <button class="type-btn btn-ABET" onclick="selectType(&#39;ABET&#39;)">AB+ET<br>JUNTOS</button>
+    </div>
+    <div class="modal-section-title">PESSOAL</div>
+    <div class="modal-types" style="grid-template-columns:1fr 1fr 1fr 1fr;margin-bottom:10px;">
+      <button class="type-btn btn-P" onclick="selectType(&#39;P&#39;)">P<br>PESSOAL</button>
+      <button class="type-btn btn-BJJ" onclick="selectType(&#39;BJJ&#39;)">BJJ<br>TREINO</button>
+      <button class="type-btn btn-IBI" onclick="selectType(&#39;IBI&#39;)">IBI<br>IGREJA</button>
+      <button class="type-btn btn-FOLGA" onclick="selectType(&#39;FOLGA&#39;)" style="grid-column:span 1;">FOLGA</button>
     </div>
     <textarea class="modal-note" id="modalNote" placeholder="Anotação (opcional)..."></textarea>
     <div class="modal-actions">
       <button class="btn-save" onclick="saveCell()">SALVAR</button>
       <button class="btn-clear" onclick="clearCell()">LIMPAR</button>
       <button class="btn-cancel" onclick="closeModal()">✕</button>
+    </div>
+  </div>
+</div>
+
+<!-- DAY BLOCK MODAL -->
+<div class="day-modal-overlay" id="dayModalOverlay">
+  <div class="day-modal">
+    <h2>INTERDITAR DIA</h2>
+    <div class="modal-time" id="dayModalTime"></div>
+    <div class="day-modal-types">
+      <button class="day-type-btn dBtn-FOLGA" onclick="selectDayType(&#39;FOLGA&#39;)">🛌 FOLGA</button>
+      <button class="day-type-btn dBtn-BJJ" onclick="selectDayType(&#39;BJJ&#39;)">🥋 BJJ</button>
+      <button class="day-type-btn dBtn-IBI" onclick="selectDayType(&#39;IBI&#39;)">⛪ IGREJA</button>
+      <button class="day-type-btn dBtn-AB" onclick="selectDayType(&#39;AB&#39;)">📷 AB MÍDIA</button>
+      <button class="day-type-btn dBtn-ET" onclick="selectDayType(&#39;ET&#39;)">💇 ET TRANÇAS</button>
+      <button class="day-type-btn dBtn-ABET" onclick="selectDayType(&#39;ABET&#39;)">AB+ET</button>
+      <button class="day-type-btn dBtn-P" onclick="selectDayType(&#39;P&#39;)">🏠 PESSOAL</button>
+      <button class="day-type-btn dBtn-C" onclick="selectDayType(&#39;C&#39;)">💡 CRIATIVO</button>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-save" onclick="saveDayBlock()">INTERDITAR DIA TODO</button>
+      <button class="btn-clear" onclick="clearDayBlock()">LIMPAR DIA</button>
+      <button class="btn-cancel" onclick="closeDayModal()">✕</button>
     </div>
   </div>
 </div>
@@ -404,9 +539,7 @@
     window._fbSet = set;
     window._fbOnValue = onValue;
     window._fbOk = true;
-    console.log('Firebase initialized');
   } catch(e) {
-    console.log('Firebase error:', e);
     window._fbOk = false;
   }
 </script>
@@ -416,10 +549,17 @@ const DAYS = ['SEG','TER','QUA','QUI','SEX','SÁB','DOM'];
 const DAYS_FULL = ['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'];
 const HOURS = Array.from({length:15}, (_,i) => 8+i);
 
+const TYPE_LABELS = {
+  C:'C', R:'R', G:'G', P:'P',
+  BJJ:'BJJ', IBI:'IBI', AB:'AB', ET:'ET', ABET:'AB\nET', FOLGA:'FOLGA'
+};
+
 let currentWeekOffset = 0;
 let agendaData = {};
 let selectedCell = null;
 let selectedType = null;
+let selectedDayIdx = null;
+let selectedDayType = null;
 let notifications = [];
 let fbListening = false;
 
@@ -472,12 +612,11 @@ function syncToFirebase() {
     window._fbSet(r, agendaData).then(() => {
       el.textContent = '● ONLINE';
       el.className = 'sync-status online';
-    }).catch(e => {
-      console.log('Sync error:', e);
+    }).catch(() => {
       el.textContent = '● ERRO';
       el.className = 'sync-status';
     });
-  } catch(e) { console.log(e); }
+  } catch(e) {}
 }
 
 function startListening() {
@@ -500,12 +639,11 @@ function startListening() {
           updateStats();
         }
       }
-    }, (error) => {
-      console.log('Firebase listen error:', error);
+    }, () => {
       document.getElementById('syncStatus').textContent = '● OFFLINE';
       document.getElementById('syncStatus').className = 'sync-status';
     });
-  } catch(e) { console.log(e); }
+  } catch(e) {}
 }
 
 function renderGrid() {
@@ -515,17 +653,21 @@ function renderGrid() {
   document.getElementById('weekLabel').textContent = formatDate(dates[0])+' — '+formatDate(dates[6]);
   grid.innerHTML = '';
 
-  const emptyHeader = document.createElement('div');
-  emptyHeader.className = 'time-col-header';
-  grid.appendChild(emptyHeader);
+  // Empty corner
+  const corner = document.createElement('div');
+  corner.className = 'time-col-header';
+  grid.appendChild(corner);
 
+  // Day headers — click to open day block modal
   dates.forEach((d,i) => {
     const el = document.createElement('div');
     el.className = 'day-header'+(isToday(d)?' today':'');
-    el.innerHTML = '<div class="day-name">'+DAYS[i]+'</div><div class="day-date">'+formatDate(d)+'</div>';
+    el.innerHTML = '<div class="day-name">'+DAYS[i]+'</div><div class="day-date">'+formatDate(d)+'</div><div class="block-all-btn">▦ DIA TODO</div>';
+    el.addEventListener('click', () => openDayModal(i, d));
     grid.appendChild(el);
   });
 
+  // Time rows
   HOURS.forEach(hour => {
     const tl = document.createElement('div');
     tl.className = 'time-label';
@@ -541,6 +683,10 @@ function renderGrid() {
       if (entry) {
         const label = document.createElement('div');
         label.className = 'cell-label';
+        label.textContent = TYPE_LABELS[entry.type] || entry.type;
+        if (entry.type === 'ABET') {
+          label.style.textShadow = '0 0 3px rgba(0,0,0,0.8)';
+        }
         cell.appendChild(label);
       }
       cell.addEventListener('click', () => openModal(key, dayIdx, hour));
@@ -549,6 +695,7 @@ function renderGrid() {
   });
 }
 
+// CELL MODAL
 function openModal(key, dayIdx, hour) {
   const dates = getWeekDates(currentWeekOffset);
   selectedCell = key;
@@ -576,36 +723,75 @@ function saveCell() {
   if (!selectedCell || !selectedType) { alert('Selecione um tipo!'); return; }
   const note = document.getElementById('modalNote').value.trim();
   agendaData[selectedCell] = { type: selectedType, note };
-  saveLocal();
-  syncToFirebase();
-  closeModal();
-  renderGrid();
-  updateStats();
+  saveLocal(); syncToFirebase();
+  closeModal(); renderGrid(); updateStats();
 }
 
 function clearCell() {
   if (!selectedCell) return;
   delete agendaData[selectedCell];
-  saveLocal();
-  syncToFirebase();
-  closeModal();
-  renderGrid();
-  updateStats();
+  saveLocal(); syncToFirebase();
+  closeModal(); renderGrid(); updateStats();
+}
+
+// DAY MODAL
+function openDayModal(dayIdx, date) {
+  selectedDayIdx = dayIdx;
+  selectedDayType = null;
+  document.getElementById('dayModalTime').textContent = DAYS_FULL[dayIdx]+', '+formatDate(date)+' — DIA TODO';
+  document.querySelectorAll('.day-type-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('dayModalOverlay').classList.add('open');
+}
+
+function closeDayModal() {
+  document.getElementById('dayModalOverlay').classList.remove('open');
+  selectedDayIdx = null; selectedDayType = null;
+}
+
+function selectDayType(type) {
+  selectedDayType = type;
+  document.querySelectorAll('.day-type-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.dBtn-'+type)?.classList.add('active');
+}
+
+function saveDayBlock() {
+  if (selectedDayIdx === null || !selectedDayType) { alert('Selecione um tipo!'); return; }
+  const wk = weekKey(currentWeekOffset);
+  HOURS.forEach(hour => {
+    const key = wk+'_'+selectedDayIdx+'_'+hour;
+    agendaData[key] = { type: selectedDayType, note: '' };
+  });
+  saveLocal(); syncToFirebase();
+  closeDayModal(); renderGrid(); updateStats();
+}
+
+function clearDayBlock() {
+  if (selectedDayIdx === null) return;
+  const wk = weekKey(currentWeekOffset);
+  HOURS.forEach(hour => {
+    const key = wk+'_'+selectedDayIdx+'_'+hour;
+    delete agendaData[key];
+  });
+  saveLocal(); syncToFirebase();
+  closeDayModal(); renderGrid(); updateStats();
 }
 
 function updateStats() {
   const wk = weekKey(currentWeekOffset);
-  let c=0,r=0,g=0,p=0,total=0;
+  let c=0,r=0,g=0,bjj=0,ab=0,et=0,total=0;
   Object.keys(agendaData).forEach(k => {
     if (!k.startsWith(wk)) return;
     total++;
     const t = agendaData[k].type;
-    if(t==='C')c++; if(t==='R')r++; if(t==='G')g++; if(t==='P')p++;
+    if(t==='C')c++; if(t==='R')r++; if(t==='G')g++;
+    if(t==='BJJ')bjj++; if(t==='AB'||t==='ABET')ab++; if(t==='ET'||t==='ABET')et++;
   });
   document.getElementById('statC').textContent = c;
   document.getElementById('statR').textContent = r;
   document.getElementById('statG').textContent = g;
-  document.getElementById('statP').textContent = p;
+  document.getElementById('statBJJ').textContent = bjj;
+  document.getElementById('statAB').textContent = ab;
+  document.getElementById('statET').textContent = et;
   document.getElementById('statFree').textContent = (HOURS.length*7)-total;
 }
 
@@ -633,21 +819,20 @@ function toggleNotif() { document.getElementById('notifPanel').classList.toggle(
 document.getElementById('modalOverlay').addEventListener('click', e => {
   if(e.target===document.getElementById('modalOverlay')) closeModal();
 });
+document.getElementById('dayModalOverlay').addEventListener('click', e => {
+  if(e.target===document.getElementById('dayModalOverlay')) closeDayModal();
+});
 
 if(Notification.permission==='default') Notification.requestPermission();
 
-// Init
-loadData();
-renderGrid();
-updateStats();
-
-// Start Firebase after modules load
+loadData(); renderGrid(); updateStats();
 setTimeout(() => { startListening(); }, 2000);
 
-// Expose globals
 window.changeWeek=changeWeek; window.goToToday=goToToday;
 window.closeModal=closeModal; window.selectType=selectType;
 window.saveCell=saveCell; window.clearCell=clearCell;
+window.closeDayModal=closeDayModal; window.selectDayType=selectDayType;
+window.saveDayBlock=saveDayBlock; window.clearDayBlock=clearDayBlock;
 window.toggleNotif=toggleNotif; window.clearNotifs=clearNotifs;
 </script>
 
