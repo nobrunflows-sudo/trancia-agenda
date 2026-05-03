@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- saved from url=(0050)file:///C:/Users/Lenovo/Downloads/trancia_1_1.html -->
+<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>TRANCIA — Agenda</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="./TRANCIA — Agenda_files/css2" rel="stylesheet">
 <style>
   :root {
     --red: #E01A1A;
@@ -26,7 +26,7 @@
     background: var(--white);
     color: var(--black);
     min-height: 100vh;
-    overflow-x: auto;
+    overflow-x: hidden;
   }
 
   /* HEADER */
@@ -34,154 +34,150 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 16px 32px;
+    padding: 10px 16px;
     border-bottom: 3px solid var(--black);
     position: sticky;
     top: 0;
     background: var(--white);
     z-index: 100;
+    flex-wrap: wrap;
+    gap: 8px;
   }
 
   .logo {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 42px;
-    letter-spacing: 6px;
+    font-size: 32px;
+    letter-spacing: 4px;
     color: var(--black);
     line-height: 1;
   }
-
   .logo span { color: var(--red); }
 
   .week-nav {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 8px;
   }
 
   .week-nav button {
-    width: 36px; height: 36px;
+    width: 32px; height: 32px;
     border: 2px solid var(--black);
     background: var(--white);
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
     font-family: 'Bebas Neue', sans-serif;
     transition: all 0.15s;
     display: flex; align-items: center; justify-content: center;
   }
-
   .week-nav button:hover { background: var(--black); color: var(--white); }
 
   .week-label {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 18px;
-    letter-spacing: 2px;
-    min-width: 200px;
+    font-size: 14px;
+    letter-spacing: 1px;
+    min-width: 140px;
     text-align: center;
   }
 
   .header-right {
     display: flex;
     align-items: center;
-    gap: 12px;
-  }
-
-  .legend {
-    display: flex;
     gap: 8px;
-    align-items: center;
-  }
-
-  .legend-item {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 1px;
-  }
-
-  .legend-dot {
-    width: 14px; height: 14px;
-    border-radius: 2px;
+    flex-wrap: wrap;
   }
 
   .sync-status {
-    font-size: 11px;
-    font-weight: 500;
-    padding: 4px 10px;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 4px 8px;
     border: 1.5px solid var(--gray-mid);
     color: var(--gray-dark);
     letter-spacing: 1px;
   }
-
   .sync-status.online { border-color: #22c55e; color: #22c55e; }
   .sync-status.syncing { border-color: var(--red); color: var(--red); }
 
-  /* NOTIFICATION BELL */
   .notif-btn {
-    position: relative;
-    width: 36px; height: 36px;
+    width: 32px; height: 32px;
     border: 2px solid var(--black);
     background: var(--white);
     cursor: pointer;
     display: flex; align-items: center; justify-content: center;
-    font-size: 16px;
-    transition: all 0.15s;
-  }
-  .notif-btn:hover { background: var(--black); }
-  .notif-badge {
-    position: absolute;
-    top: -4px; right: -4px;
-    width: 14px; height: 14px;
-    background: var(--red);
-    border-radius: 50%;
-    font-size: 9px;
-    color: white;
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 700;
-    display: none;
+    font-size: 14px;
+    position: relative;
   }
 
-  /* GRID */
-  .grid-wrapper {
-    padding: 0 32px 32px;
+  .notif-badge {
+    position: absolute; top: -4px; right: -4px;
+    width: 14px; height: 14px;
+    background: var(--red); border-radius: 50%;
+    font-size: 9px; color: white;
+    display: none; align-items: center; justify-content: center;
+    font-weight: 700;
+  }
+
+  /* LEGEND BAR */
+  .legend-bar {
+    display: flex;
+    gap: 12px;
+    padding: 8px 16px;
+    border-bottom: 2px solid var(--black);
+    flex-wrap: wrap;
+    background: var(--white);
+  }
+
+  .legend-item {
+    display: flex; align-items: center; gap: 4px;
+    font-size: 10px; font-weight: 600; letter-spacing: 1px;
+  }
+  .legend-dot { width: 12px; height: 12px; border-radius: 2px; }
+
+  /* STATS BAR */
+  .stats-bar {
+    display: flex;
+    gap: 16px;
+    padding: 8px 16px;
+    border-bottom: 2px solid var(--black);
+    background: var(--black);
+    color: var(--white);
+    flex-wrap: wrap;
     overflow-x: auto;
+  }
+
+  .stat {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 11px;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+  .stat-val { color: var(--red); font-size: 16px; }
+
+  /* GRID WRAPPER */
+  .grid-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .grid {
     display: grid;
-    grid-template-columns: 60px repeat(7, 1fr);
-    min-width: 900px;
+    grid-template-columns: 44px repeat(7, minmax(44px, 1fr));
+    min-width: 360px;
     border-left: 2px solid var(--black);
     border-top: 2px solid var(--black);
   }
 
-  /* Day headers */
   .day-header {
     border-right: 2px solid var(--black);
     border-bottom: 2px solid var(--black);
-    padding: 12px 8px;
+    padding: 6px 2px;
     text-align: center;
     background: var(--black);
     color: var(--white);
   }
-
-  .day-header.today {
-    background: var(--red);
-  }
-
-  .day-header .day-name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 16px;
-    letter-spacing: 3px;
-  }
-
-  .day-header .day-date {
-    font-size: 11px;
-    font-weight: 300;
-    opacity: 0.7;
-    margin-top: 2px;
-  }
+  .day-header.today { background: var(--red); }
+  .day-header .day-name { font-family: 'Bebas Neue', sans-serif; font-size: 13px; letter-spacing: 1px; }
+  .day-header .day-date { font-size: 9px; font-weight: 300; opacity: 0.7; margin-top: 1px; }
 
   .time-col-header {
     border-right: 2px solid var(--black);
@@ -189,41 +185,29 @@
     background: var(--black);
   }
 
-  /* Time labels */
   .time-label {
     border-right: 2px solid var(--black);
     border-bottom: 1px solid var(--gray-mid);
-    padding: 0 8px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    height: 40px;
+    padding: 0 4px;
+    display: flex; align-items: center; justify-content: flex-end;
+    height: 36px;
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 13px;
+    font-size: 11px;
     letter-spacing: 1px;
     color: var(--gray-dark);
     background: var(--white);
   }
 
-  /* Cells */
   .cell {
     border-right: 2px solid var(--black);
     border-bottom: 1px solid var(--gray-mid);
-    height: 40px;
+    height: 36px;
     cursor: pointer;
     position: relative;
     transition: background 0.1s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
   }
-
   .cell:hover { background: var(--gray-light); }
-
-  .cell.marked {
-    cursor: pointer;
-  }
-
   .cell.type-C { background: var(--criativo) !important; }
   .cell.type-R { background: var(--roteiro) !important; }
   .cell.type-G { background: var(--gravacao) !important; }
@@ -231,13 +215,12 @@
 
   .cell-label {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 15px;
-    letter-spacing: 2px;
+    font-size: 13px;
+    letter-spacing: 1px;
     color: var(--white);
     pointer-events: none;
     user-select: none;
   }
-
   .cell.type-C .cell-label::before { content: 'C'; }
   .cell.type-R .cell-label::before { content: 'R'; }
   .cell.type-G .cell-label::before { content: 'G'; }
@@ -245,25 +228,22 @@
 
   /* MODAL */
   .modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.6);
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.7);
     z-index: 200;
-    display: none;
-    align-items: center;
-    justify-content: center;
+    display: none; align-items: center; justify-content: center;
+    padding: 16px;
   }
-
   .modal-overlay.open { display: flex; }
 
   .modal {
     background: var(--white);
     border: 3px solid var(--black);
-    padding: 32px;
-    width: 360px;
+    padding: 24px;
+    width: 100%;
+    max-width: 340px;
     animation: modalIn 0.2s ease;
   }
-
   @keyframes modalIn {
     from { transform: translateY(-20px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
@@ -271,259 +251,122 @@
 
   .modal h2 {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 28px;
-    letter-spacing: 4px;
-    margin-bottom: 6px;
+    font-size: 24px; letter-spacing: 3px; margin-bottom: 4px;
   }
-
-  .modal .modal-time {
-    font-size: 13px;
-    color: var(--gray-dark);
-    margin-bottom: 24px;
-    font-weight: 500;
-  }
+  .modal .modal-time { font-size: 12px; color: var(--gray-dark); margin-bottom: 20px; font-weight: 500; }
 
   .modal-types {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 20px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 8px; margin-bottom: 16px;
   }
 
   .type-btn {
-    padding: 14px;
-    border: 2px solid var(--black);
-    background: var(--white);
-    cursor: pointer;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 18px;
-    letter-spacing: 3px;
-    transition: all 0.15s;
-    text-align: center;
+    padding: 12px; border: 2px solid var(--black);
+    background: var(--white); cursor: pointer;
+    font-family: 'Bebas Neue', sans-serif; font-size: 15px;
+    letter-spacing: 2px; transition: all 0.15s; text-align: center;
   }
-
-  .type-btn:hover, .type-btn.active {
-    background: var(--red);
-    color: var(--white);
-    border-color: var(--red);
-  }
-
+  .type-btn:hover, .type-btn.active { background: var(--red); color: var(--white); border-color: var(--red); }
   .type-btn.btn-R:hover, .type-btn.btn-R.active { background: var(--roteiro); border-color: var(--roteiro); }
   .type-btn.btn-G:hover, .type-btn.btn-G.active { background: var(--gravacao); border-color: var(--gravacao); }
   .type-btn.btn-P:hover, .type-btn.btn-P.active { background: var(--pessoal); border-color: var(--pessoal); }
 
   .modal-note {
-    width: 100%;
-    border: 2px solid var(--black);
-    padding: 10px 12px;
-    font-family: 'Inter', sans-serif;
-    font-size: 13px;
-    resize: none;
-    outline: none;
-    margin-bottom: 20px;
-    height: 70px;
+    width: 100%; border: 2px solid var(--black);
+    padding: 8px 10px; font-family: 'Inter', sans-serif;
+    font-size: 13px; resize: none; outline: none;
+    margin-bottom: 16px; height: 60px;
   }
 
-  .modal-actions {
-    display: flex;
-    gap: 10px;
-  }
+  .modal-actions { display: flex; gap: 8px; }
 
   .btn-save {
-    flex: 1;
-    padding: 12px;
-    background: var(--black);
-    color: var(--white);
+    flex: 1; padding: 10px;
+    background: var(--black); color: var(--white);
     border: 2px solid var(--black);
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 18px;
-    letter-spacing: 3px;
-    cursor: pointer;
-    transition: all 0.15s;
+    font-family: 'Bebas Neue', sans-serif; font-size: 16px;
+    letter-spacing: 2px; cursor: pointer;
   }
-
   .btn-save:hover { background: var(--red); border-color: var(--red); }
-
   .btn-clear {
-    padding: 12px 20px;
-    background: var(--white);
-    color: var(--black);
+    padding: 10px 14px; background: var(--white); color: var(--black);
     border: 2px solid var(--black);
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 18px;
-    letter-spacing: 2px;
-    cursor: pointer;
-    transition: all 0.15s;
+    font-family: 'Bebas Neue', sans-serif; font-size: 16px;
+    letter-spacing: 1px; cursor: pointer;
   }
-
-  .btn-clear:hover { background: var(--gray-light); }
-
   .btn-cancel {
-    padding: 12px 20px;
-    background: var(--white);
-    color: var(--gray-dark);
+    padding: 10px 14px; background: var(--white); color: var(--gray-dark);
     border: 2px solid var(--gray-mid);
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 18px;
-    letter-spacing: 2px;
-    cursor: pointer;
+    font-family: 'Bebas Neue', sans-serif; font-size: 16px; cursor: pointer;
   }
-
-  /* TOOLTIP */
-  .cell-note {
-    position: absolute;
-    bottom: calc(100% + 6px);
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--black);
-    color: var(--white);
-    font-size: 11px;
-    padding: 4px 8px;
-    white-space: nowrap;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.15s;
-    z-index: 50;
-  }
-
-  .cell:hover .cell-note { opacity: 1; }
-
-  /* STATS BAR */
-  .stats-bar {
-    display: flex;
-    gap: 24px;
-    padding: 12px 32px;
-    border-bottom: 2px solid var(--black);
-    background: var(--black);
-    color: var(--white);
-    flex-wrap: wrap;
-  }
-
-  .stat {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 12px;
-    font-family: 'Bebas Neue', sans-serif;
-    letter-spacing: 2px;
-  }
-
-  .stat-val { color: var(--red); font-size: 18px; }
 
   /* NOTIF PANEL */
   .notif-panel {
-    position: fixed;
-    top: 70px; right: 32px;
-    width: 300px;
-    background: var(--white);
-    border: 2px solid var(--black);
-    z-index: 150;
-    display: none;
-    max-height: 400px;
-    overflow-y: auto;
+    position: fixed; top: 60px; right: 16px;
+    width: 280px; background: var(--white);
+    border: 2px solid var(--black); z-index: 150;
+    display: none; max-height: 350px; overflow-y: auto;
   }
-
   .notif-panel.open { display: block; }
-
   .notif-header {
-    padding: 12px 16px;
-    border-bottom: 2px solid var(--black);
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 18px;
-    letter-spacing: 3px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: var(--black);
-    color: var(--white);
+    padding: 10px 14px; border-bottom: 2px solid var(--black);
+    font-family: 'Bebas Neue', sans-serif; font-size: 16px;
+    letter-spacing: 2px; display: flex; justify-content: space-between;
+    align-items: center; background: var(--black); color: var(--white);
   }
-
-  .notif-clear { font-size: 11px; cursor: pointer; opacity: 0.6; }
-
-  .notif-item {
-    padding: 12px 16px;
-    border-bottom: 1px solid var(--gray-mid);
-    font-size: 12px;
-    line-height: 1.5;
-  }
-
-  .notif-item .notif-type {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 14px;
-    letter-spacing: 2px;
-    color: var(--red);
-  }
-
+  .notif-clear { font-size: 10px; cursor: pointer; opacity: 0.6; }
+  .notif-item { padding: 10px 14px; border-bottom: 1px solid var(--gray-mid); font-size: 12px; line-height: 1.5; }
+  .notif-item .notif-type { font-family: 'Bebas Neue', sans-serif; font-size: 13px; letter-spacing: 1px; color: var(--red); }
   .notif-item .notif-time { color: var(--gray-dark); font-size: 10px; margin-top: 2px; }
-
-  .notif-empty {
-    padding: 24px 16px;
-    text-align: center;
-    color: var(--gray-dark);
-    font-size: 12px;
-  }
+  .notif-empty { padding: 20px 14px; text-align: center; color: var(--gray-dark); font-size: 12px; }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
   <div class="logo">TRAN<span>C</span>IA</div>
-
   <div class="week-nav">
-    <button onclick="changeWeek(-1)">&#8592;</button>
-    <div class="week-label" id="weekLabel">—</div>
-    <button onclick="changeWeek(1)">&#8594;</button>
-    <button onclick="goToToday()" style="width:auto;padding:0 12px;font-size:13px;letter-spacing:1px;">HOJE</button>
+    <button onclick="changeWeek(-1)">←</button>
+    <div class="week-label" id="weekLabel">27/04 — 03/05</div>
+    <button onclick="changeWeek(1)">→</button>
+    <button onclick="goToToday()" style="width:auto;padding:0 10px;font-size:12px;letter-spacing:1px;">HOJE</button>
   </div>
-
   <div class="header-right">
-    <div class="legend">
-      <div class="legend-item">
-        <div class="legend-dot" style="background:var(--criativo)"></div> CRIATIVO
-      </div>
-      <div class="legend-item">
-        <div class="legend-dot" style="background:var(--roteiro)"></div> ROTEIRO
-      </div>
-      <div class="legend-item">
-        <div class="legend-dot" style="background:var(--gravacao)"></div> GRAVAÇÃO
-      </div>
-      <div class="legend-item">
-        <div class="legend-dot" style="background:var(--pessoal)"></div> PESSOAL
-      </div>
-    </div>
-    <div class="sync-status" id="syncStatus">● OFFLINE</div>
-    <button class="notif-btn" onclick="toggleNotif()" title="Notificações">
-      🔔
-      <div class="notif-badge" id="notifBadge">0</div>
+    <div class="sync-status online" id="syncStatus">● ONLINE</div>
+    <button class="notif-btn" onclick="toggleNotif()">
+      🔔<div class="notif-badge" id="notifBadge">0</div>
     </button>
   </div>
 </header>
 
-<!-- STATS BAR -->
+<div class="legend-bar">
+  <div class="legend-item"><div class="legend-dot" style="background:var(--criativo)"></div>C — CRIATIVO</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--roteiro)"></div>R — ROTEIRO</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--gravacao)"></div>G — GRAVAÇÃO</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--pessoal)"></div>P — PESSOAL</div>
+</div>
+
 <div class="stats-bar">
-  <div class="stat"><span class="stat-val" id="statC">0</span> CRIATIVOS</div>
-  <div class="stat"><span class="stat-val" id="statR">0</span> ROTEIROS</div>
-  <div class="stat"><span class="stat-val" id="statG">0</span> GRAVAÇÕES</div>
-  <div class="stat"><span class="stat-val" id="statP">0</span> PESSOAIS</div>
-  <div class="stat"><span class="stat-val" id="statFree">0</span> HRS LIVRES</div>
+  <div class="stat"><span class="stat-val" id="statC">0</span> C</div>
+  <div class="stat"><span class="stat-val" id="statR">0</span> R</div>
+  <div class="stat"><span class="stat-val" id="statG">0</span> G</div>
+  <div class="stat"><span class="stat-val" id="statP">0</span> P</div>
+  <div class="stat"><span class="stat-val" id="statFree">105</span> HRS LIVRES</div>
 </div>
 
-<!-- GRID -->
 <div class="grid-wrapper">
-  <div class="grid" id="agendaGrid"></div>
+  <div class="grid" id="agendaGrid"><div class="time-col-header"></div><div class="day-header"><div class="day-name">SEG</div><div class="day-date">27/04</div></div><div class="day-header"><div class="day-name">TER</div><div class="day-date">28/04</div></div><div class="day-header"><div class="day-name">QUA</div><div class="day-date">29/04</div></div><div class="day-header"><div class="day-name">QUI</div><div class="day-date">30/04</div></div><div class="day-header"><div class="day-name">SEX</div><div class="day-date">01/05</div></div><div class="day-header today"><div class="day-name">SÁB</div><div class="day-date">02/05</div></div><div class="day-header"><div class="day-name">DOM</div><div class="day-date">03/05</div></div><div class="time-label">8h</div><div class="cell" data-key="w2026-04-27_0_8"></div><div class="cell" data-key="w2026-04-27_1_8"></div><div class="cell" data-key="w2026-04-27_2_8"></div><div class="cell" data-key="w2026-04-27_3_8"></div><div class="cell" data-key="w2026-04-27_4_8"></div><div class="cell" data-key="w2026-04-27_5_8"></div><div class="cell" data-key="w2026-04-27_6_8"></div><div class="time-label">9h</div><div class="cell" data-key="w2026-04-27_0_9"></div><div class="cell" data-key="w2026-04-27_1_9"></div><div class="cell" data-key="w2026-04-27_2_9"></div><div class="cell" data-key="w2026-04-27_3_9"></div><div class="cell" data-key="w2026-04-27_4_9"></div><div class="cell" data-key="w2026-04-27_5_9"></div><div class="cell" data-key="w2026-04-27_6_9"></div><div class="time-label">10h</div><div class="cell" data-key="w2026-04-27_0_10"></div><div class="cell" data-key="w2026-04-27_1_10"></div><div class="cell" data-key="w2026-04-27_2_10"></div><div class="cell" data-key="w2026-04-27_3_10"></div><div class="cell" data-key="w2026-04-27_4_10"></div><div class="cell" data-key="w2026-04-27_5_10"></div><div class="cell" data-key="w2026-04-27_6_10"></div><div class="time-label">11h</div><div class="cell" data-key="w2026-04-27_0_11"></div><div class="cell" data-key="w2026-04-27_1_11"></div><div class="cell" data-key="w2026-04-27_2_11"></div><div class="cell" data-key="w2026-04-27_3_11"></div><div class="cell" data-key="w2026-04-27_4_11"></div><div class="cell" data-key="w2026-04-27_5_11"></div><div class="cell" data-key="w2026-04-27_6_11"></div><div class="time-label">12h</div><div class="cell" data-key="w2026-04-27_0_12"></div><div class="cell" data-key="w2026-04-27_1_12"></div><div class="cell" data-key="w2026-04-27_2_12"></div><div class="cell" data-key="w2026-04-27_3_12"></div><div class="cell" data-key="w2026-04-27_4_12"></div><div class="cell" data-key="w2026-04-27_5_12"></div><div class="cell" data-key="w2026-04-27_6_12"></div><div class="time-label">13h</div><div class="cell" data-key="w2026-04-27_0_13"></div><div class="cell" data-key="w2026-04-27_1_13"></div><div class="cell" data-key="w2026-04-27_2_13"></div><div class="cell" data-key="w2026-04-27_3_13"></div><div class="cell" data-key="w2026-04-27_4_13"></div><div class="cell" data-key="w2026-04-27_5_13"></div><div class="cell" data-key="w2026-04-27_6_13"></div><div class="time-label">14h</div><div class="cell" data-key="w2026-04-27_0_14"></div><div class="cell" data-key="w2026-04-27_1_14"></div><div class="cell" data-key="w2026-04-27_2_14"></div><div class="cell" data-key="w2026-04-27_3_14"></div><div class="cell" data-key="w2026-04-27_4_14"></div><div class="cell" data-key="w2026-04-27_5_14"></div><div class="cell" data-key="w2026-04-27_6_14"></div><div class="time-label">15h</div><div class="cell" data-key="w2026-04-27_0_15"></div><div class="cell" data-key="w2026-04-27_1_15"></div><div class="cell" data-key="w2026-04-27_2_15"></div><div class="cell" data-key="w2026-04-27_3_15"></div><div class="cell" data-key="w2026-04-27_4_15"></div><div class="cell" data-key="w2026-04-27_5_15"></div><div class="cell" data-key="w2026-04-27_6_15"></div><div class="time-label">16h</div><div class="cell" data-key="w2026-04-27_0_16"></div><div class="cell" data-key="w2026-04-27_1_16"></div><div class="cell" data-key="w2026-04-27_2_16"></div><div class="cell" data-key="w2026-04-27_3_16"></div><div class="cell" data-key="w2026-04-27_4_16"></div><div class="cell" data-key="w2026-04-27_5_16"></div><div class="cell" data-key="w2026-04-27_6_16"></div><div class="time-label">17h</div><div class="cell" data-key="w2026-04-27_0_17"></div><div class="cell" data-key="w2026-04-27_1_17"></div><div class="cell" data-key="w2026-04-27_2_17"></div><div class="cell" data-key="w2026-04-27_3_17"></div><div class="cell" data-key="w2026-04-27_4_17"></div><div class="cell" data-key="w2026-04-27_5_17"></div><div class="cell" data-key="w2026-04-27_6_17"></div><div class="time-label">18h</div><div class="cell" data-key="w2026-04-27_0_18"></div><div class="cell" data-key="w2026-04-27_1_18"></div><div class="cell" data-key="w2026-04-27_2_18"></div><div class="cell" data-key="w2026-04-27_3_18"></div><div class="cell" data-key="w2026-04-27_4_18"></div><div class="cell" data-key="w2026-04-27_5_18"></div><div class="cell" data-key="w2026-04-27_6_18"></div><div class="time-label">19h</div><div class="cell" data-key="w2026-04-27_0_19"></div><div class="cell" data-key="w2026-04-27_1_19"></div><div class="cell" data-key="w2026-04-27_2_19"></div><div class="cell" data-key="w2026-04-27_3_19"></div><div class="cell" data-key="w2026-04-27_4_19"></div><div class="cell" data-key="w2026-04-27_5_19"></div><div class="cell" data-key="w2026-04-27_6_19"></div><div class="time-label">20h</div><div class="cell" data-key="w2026-04-27_0_20"></div><div class="cell" data-key="w2026-04-27_1_20"></div><div class="cell" data-key="w2026-04-27_2_20"></div><div class="cell" data-key="w2026-04-27_3_20"></div><div class="cell" data-key="w2026-04-27_4_20"></div><div class="cell" data-key="w2026-04-27_5_20"></div><div class="cell" data-key="w2026-04-27_6_20"></div><div class="time-label">21h</div><div class="cell" data-key="w2026-04-27_0_21"></div><div class="cell" data-key="w2026-04-27_1_21"></div><div class="cell" data-key="w2026-04-27_2_21"></div><div class="cell" data-key="w2026-04-27_3_21"></div><div class="cell" data-key="w2026-04-27_4_21"></div><div class="cell" data-key="w2026-04-27_5_21"></div><div class="cell" data-key="w2026-04-27_6_21"></div><div class="time-label">22h</div><div class="cell" data-key="w2026-04-27_0_22"></div><div class="cell" data-key="w2026-04-27_1_22"></div><div class="cell" data-key="w2026-04-27_2_22"></div><div class="cell" data-key="w2026-04-27_3_22"></div><div class="cell" data-key="w2026-04-27_4_22"></div><div class="cell" data-key="w2026-04-27_5_22"></div><div class="cell" data-key="w2026-04-27_6_22"></div></div>
 </div>
 
-<!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
-    <h2 id="modalTitle">MARCAR HORÁRIO</h2>
+    <h2>MARCAR</h2>
     <div class="modal-time" id="modalTime"></div>
     <div class="modal-types">
-      <button class="type-btn btn-C" onclick="selectType('C')">C — CRIATIVO</button>
-      <button class="type-btn btn-R" onclick="selectType('R')">R — ROTEIRO</button>
-      <button class="type-btn btn-G" onclick="selectType('G')">G — GRAVAÇÃO</button>
-      <button class="type-btn btn-P" onclick="selectType('P')">P — PESSOAL</button>
+      <button class="type-btn btn-C" onclick="selectType(&#39;C&#39;)">C — CRIATIVO</button>
+      <button class="type-btn btn-R" onclick="selectType(&#39;R&#39;)">R — ROTEIRO</button>
+      <button class="type-btn btn-G" onclick="selectType(&#39;G&#39;)">G — GRAVAÇÃO</button>
+      <button class="type-btn btn-P" onclick="selectType(&#39;P&#39;)">P — PESSOAL</button>
     </div>
     <textarea class="modal-note" id="modalNote" placeholder="Anotação (opcional)..."></textarea>
     <div class="modal-actions">
@@ -534,19 +377,14 @@
   </div>
 </div>
 
-<!-- NOTIF PANEL -->
 <div class="notif-panel" id="notifPanel">
-  <div class="notif-header">
-    NOTIFICAÇÕES
-    <span class="notif-clear" onclick="clearNotifs()">LIMPAR</span>
-  </div>
+  <div class="notif-header">NOTIFICAÇÕES<span class="notif-clear" onclick="clearNotifs()">LIMPAR</span></div>
   <div id="notifList"><div class="notif-empty">Nenhuma notificação</div></div>
 </div>
 
-<!-- FIREBASE -->
 <script type="module">
   import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-  import { getDatabase, ref, set, onValue, get } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+  import { getDatabase, ref, set, onValue } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
 
   const firebaseConfig = {
     apiKey: "AIzaSyAabn54Pt8TVwI-8il8UQsUHUX_QnEwghI",
@@ -558,61 +396,54 @@
     appId: "1:901995080197:web:55251f8fd4694aeef28a6c"
   };
 
-  // Try Firebase, fallback to localStorage
-  let db = null;
-  let firebaseOk = false;
-
   try {
     const app = initializeApp(firebaseConfig);
-    db = getDatabase(app);
-    firebaseOk = true;
+    const db = getDatabase(app);
+    window._fbDB = db;
+    window._fbRef = ref;
+    window._fbSet = set;
+    window._fbOnValue = onValue;
+    window._fbOk = true;
+    console.log('Firebase initialized');
   } catch(e) {
-    console.log('Firebase not configured, using localStorage');
+    console.log('Firebase error:', e);
+    window._fbOk = false;
   }
-
-  window.firebaseDB = db;
-  window.firebaseRef = ref;
-  window.firebaseSet = set;
-  window.firebaseOnValue = onValue;
-  window.firebaseGet = get;
-  window.firebaseOk = firebaseOk;
 </script>
 
 <script>
-// ─── STATE ───────────────────────────────────────────────
 const DAYS = ['SEG','TER','QUA','QUI','SEX','SÁB','DOM'];
 const DAYS_FULL = ['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'];
-const HOURS = Array.from({length:15}, (_,i) => 8+i); // 8h–22h
-const TYPE_LABELS = { C:'CRIATIVO', R:'ROTEIRO', G:'GRAVAÇÃO', P:'PESSOAL' };
+const HOURS = Array.from({length:15}, (_,i) => 8+i);
 
 let currentWeekOffset = 0;
-let agendaData = {}; // key: "weekKey_dayIdx_hour" => {type, note}
+let agendaData = {};
 let selectedCell = null;
 let selectedType = null;
 let notifications = [];
+let fbListening = false;
 
-// ─── DATE UTILS ──────────────────────────────────────────
-function getWeekDates(offset = 0) {
+function getWeekDates(offset=0) {
   const now = new Date();
   const day = now.getDay();
-  const diff = (day === 0 ? -6 : 1 - day);
+  const diff = (day===0 ? -6 : 1-day);
   const monday = new Date(now);
-  monday.setDate(now.getDate() + diff + offset * 7);
+  monday.setDate(now.getDate() + diff + offset*7);
   monday.setHours(0,0,0,0);
   return Array.from({length:7}, (_,i) => {
     const d = new Date(monday);
-    d.setDate(monday.getDate() + i);
+    d.setDate(monday.getDate()+i);
     return d;
   });
 }
 
 function weekKey(offset) {
   const dates = getWeekDates(offset);
-  return `w${dates[0].toISOString().slice(0,10)}`;
+  return 'w'+dates[0].toISOString().slice(0,10);
 }
 
 function formatDate(d) {
-  return d.toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'});
+  return d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});
 }
 
 function isToday(d) {
@@ -620,7 +451,6 @@ function isToday(d) {
   return d.getDate()===t.getDate() && d.getMonth()===t.getMonth() && d.getFullYear()===t.getFullYear();
 }
 
-// ─── STORAGE ─────────────────────────────────────────────
 function loadData() {
   try {
     const raw = localStorage.getItem('trancia_agenda');
@@ -628,160 +458,126 @@ function loadData() {
   } catch(e) {}
 }
 
-function saveData() {
+function saveLocal() {
   localStorage.setItem('trancia_agenda', JSON.stringify(agendaData));
-  syncToFirebase();
 }
 
 function syncToFirebase() {
-  if (!window.firebaseOk || !window.firebaseDB) {
-    document.getElementById('syncStatus').textContent = '● LOCAL';
-    document.getElementById('syncStatus').className = 'sync-status';
-    return;
-  }
+  if (!window._fbOk) return;
   const el = document.getElementById('syncStatus');
   el.textContent = '● SINCRONIZANDO';
   el.className = 'sync-status syncing';
   try {
-    const r = window.firebaseRef(window.firebaseDB, 'trancia/agenda');
-    window.firebaseSet(r, agendaData).then(() => {
+    const r = window._fbRef(window._fbDB, 'trancia/agenda');
+    window._fbSet(r, agendaData).then(() => {
       el.textContent = '● ONLINE';
       el.className = 'sync-status online';
-    }).catch(() => {
-      el.textContent = '● LOCAL';
+    }).catch(e => {
+      console.log('Sync error:', e);
+      el.textContent = '● ERRO';
       el.className = 'sync-status';
     });
-  } catch(e) {
-    el.textContent = '● LOCAL';
-    el.className = 'sync-status';
-  }
+  } catch(e) { console.log(e); }
 }
 
-function listenFirebase() {
-  if (!window.firebaseOk || !window.firebaseDB) return;
+function startListening() {
+  if (!window._fbOk || fbListening) return;
+  fbListening = true;
   try {
-    const r = window.firebaseRef(window.firebaseDB, 'trancia/agenda');
-    window.firebaseOnValue(r, (snapshot) => {
+    const r = window._fbRef(window._fbDB, 'trancia/agenda');
+    window._fbOnValue(r, (snapshot) => {
       const data = snapshot.val();
+      const el = document.getElementById('syncStatus');
+      el.textContent = '● ONLINE';
+      el.className = 'sync-status online';
       if (data) {
-        const oldData = JSON.stringify(agendaData);
+        const oldStr = JSON.stringify(agendaData);
         agendaData = data;
-        localStorage.setItem('trancia_agenda', JSON.stringify(agendaData));
-        if (JSON.stringify(data) !== oldData) {
-          addNotification('Agenda atualizada por outro dispositivo');
+        saveLocal();
+        if (JSON.stringify(data) !== oldStr) {
+          addNotification('Agenda atualizada!');
           renderGrid();
           updateStats();
         }
-        document.getElementById('syncStatus').textContent = '● ONLINE';
-        document.getElementById('syncStatus').className = 'sync-status online';
       }
+    }, (error) => {
+      console.log('Firebase listen error:', error);
+      document.getElementById('syncStatus').textContent = '● OFFLINE';
+      document.getElementById('syncStatus').className = 'sync-status';
     });
-  } catch(e) {}
+  } catch(e) { console.log(e); }
 }
 
-// ─── RENDER ──────────────────────────────────────────────
 function renderGrid() {
   const grid = document.getElementById('agendaGrid');
   const dates = getWeekDates(currentWeekOffset);
   const wk = weekKey(currentWeekOffset);
-
-  // Week label
-  document.getElementById('weekLabel').textContent =
-    `${formatDate(dates[0])} — ${formatDate(dates[6])}`;
-
+  document.getElementById('weekLabel').textContent = formatDate(dates[0])+' — '+formatDate(dates[6]);
   grid.innerHTML = '';
 
-  // Header row
   const emptyHeader = document.createElement('div');
   emptyHeader.className = 'time-col-header';
   grid.appendChild(emptyHeader);
 
-  dates.forEach((d, i) => {
+  dates.forEach((d,i) => {
     const el = document.createElement('div');
-    el.className = 'day-header' + (isToday(d) ? ' today' : '');
-    el.innerHTML = `<div class="day-name">${DAYS[i]}</div><div class="day-date">${formatDate(d)}</div>`;
+    el.className = 'day-header'+(isToday(d)?' today':'');
+    el.innerHTML = '<div class="day-name">'+DAYS[i]+'</div><div class="day-date">'+formatDate(d)+'</div>';
     grid.appendChild(el);
   });
 
-  // Time rows
   HOURS.forEach(hour => {
-    const timeEl = document.createElement('div');
-    timeEl.className = 'time-label';
-    timeEl.textContent = `${hour}h`;
-    grid.appendChild(timeEl);
+    const tl = document.createElement('div');
+    tl.className = 'time-label';
+    tl.textContent = hour+'h';
+    grid.appendChild(tl);
 
-    dates.forEach((_, dayIdx) => {
-      const key = `${wk}_${dayIdx}_${hour}`;
+    dates.forEach((_,dayIdx) => {
+      const key = wk+'_'+dayIdx+'_'+hour;
       const entry = agendaData[key];
-
       const cell = document.createElement('div');
-      cell.className = 'cell' + (entry ? ` marked type-${entry.type}` : '');
+      cell.className = 'cell'+(entry?' marked type-'+entry.type:'');
       cell.dataset.key = key;
-      cell.dataset.day = dayIdx;
-      cell.dataset.hour = hour;
-
       if (entry) {
         const label = document.createElement('div');
         label.className = 'cell-label';
         cell.appendChild(label);
-        if (entry.note) {
-          const note = document.createElement('div');
-          note.className = 'cell-note';
-          note.textContent = entry.note;
-          cell.appendChild(note);
-        }
       }
-
       cell.addEventListener('click', () => openModal(key, dayIdx, hour));
       grid.appendChild(cell);
     });
   });
 }
 
-// ─── MODAL ───────────────────────────────────────────────
 function openModal(key, dayIdx, hour) {
   const dates = getWeekDates(currentWeekOffset);
   selectedCell = key;
   selectedType = null;
-
   const entry = agendaData[key];
-  document.getElementById('modalTime').textContent =
-    `${DAYS_FULL[dayIdx]}, ${formatDate(dates[dayIdx])} — ${hour}h`;
+  document.getElementById('modalTime').textContent = DAYS_FULL[dayIdx]+', '+formatDate(dates[dayIdx])+' — '+hour+'h';
   document.getElementById('modalNote').value = entry?.note || '';
-
-  // Reset type buttons
   document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
-  if (entry) {
-    selectType(entry.type, false);
-  }
-
+  if (entry) { selectedType = entry.type; document.querySelector('.btn-'+entry.type)?.classList.add('active'); }
   document.getElementById('modalOverlay').classList.add('open');
 }
 
 function closeModal() {
   document.getElementById('modalOverlay').classList.remove('open');
-  selectedCell = null;
-  selectedType = null;
+  selectedCell = null; selectedType = null;
 }
 
-function selectType(type, updateUI = true) {
+function selectType(type) {
   selectedType = type;
-  if (updateUI) {
-    document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
-    document.querySelector(`.btn-${type}`)?.classList.add('active');
-  }
+  document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.btn-'+type)?.classList.add('active');
 }
 
 function saveCell() {
-  if (!selectedCell || !selectedType) {
-    alert('Selecione um tipo antes de salvar.');
-    return;
-  }
+  if (!selectedCell || !selectedType) { alert('Selecione um tipo!'); return; }
   const note = document.getElementById('modalNote').value.trim();
-  const isNew = !agendaData[selectedCell];
   agendaData[selectedCell] = { type: selectedType, note };
-  saveData();
-  if (isNew) addNotification(`${TYPE_LABELS[selectedType]} marcado`);
+  saveLocal();
+  syncToFirebase();
   closeModal();
   renderGrid();
   updateStats();
@@ -790,117 +586,70 @@ function saveCell() {
 function clearCell() {
   if (!selectedCell) return;
   delete agendaData[selectedCell];
-  saveData();
+  saveLocal();
+  syncToFirebase();
   closeModal();
   renderGrid();
   updateStats();
 }
 
-// ─── STATS ───────────────────────────────────────────────
 function updateStats() {
   const wk = weekKey(currentWeekOffset);
-  let c=0, r=0, g=0, p=0, total=0;
+  let c=0,r=0,g=0,p=0,total=0;
   Object.keys(agendaData).forEach(k => {
     if (!k.startsWith(wk)) return;
-    const t = agendaData[k].type;
     total++;
-    if (t==='C') c++;
-    if (t==='R') r++;
-    if (t==='G') g++;
-    if (t==='P') p++;
+    const t = agendaData[k].type;
+    if(t==='C')c++; if(t==='R')r++; if(t==='G')g++; if(t==='P')p++;
   });
   document.getElementById('statC').textContent = c;
   document.getElementById('statR').textContent = r;
   document.getElementById('statG').textContent = g;
   document.getElementById('statP').textContent = p;
-  const freeHrs = (HOURS.length * 7) - total;
-  document.getElementById('statFree').textContent = freeHrs;
+  document.getElementById('statFree').textContent = (HOURS.length*7)-total;
 }
 
-// ─── WEEK NAV ────────────────────────────────────────────
-function changeWeek(dir) {
-  currentWeekOffset += dir;
-  renderGrid();
-  updateStats();
-}
+function changeWeek(dir) { currentWeekOffset+=dir; renderGrid(); updateStats(); }
+function goToToday() { currentWeekOffset=0; renderGrid(); updateStats(); }
 
-function goToToday() {
-  currentWeekOffset = 0;
-  renderGrid();
-  updateStats();
-}
-
-// ─── NOTIFICATIONS ───────────────────────────────────────
 function addNotification(msg) {
-  const now = new Date().toLocaleTimeString('pt-BR', {hour:'2-digit',minute:'2-digit'});
-  notifications.unshift({ msg, time: now });
-  if (notifications.length > 20) notifications.pop();
+  const now = new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  notifications.unshift({msg,time:now});
+  if(notifications.length>20) notifications.pop();
   renderNotifs();
-  // Browser notification
-  if (Notification.permission === 'granted') {
-    new Notification('TRANCIA', { body: msg, icon: '' });
-  }
 }
 
 function renderNotifs() {
   const list = document.getElementById('notifList');
   const badge = document.getElementById('notifBadge');
-  if (notifications.length === 0) {
-    list.innerHTML = '<div class="notif-empty">Nenhuma notificação</div>';
-    badge.style.display = 'none';
-    return;
-  }
-  badge.style.display = 'flex';
-  badge.textContent = Math.min(notifications.length, 9);
-  list.innerHTML = notifications.map(n => `
-    <div class="notif-item">
-      <div class="notif-type">TRANCIA</div>
-      <div>${n.msg}</div>
-      <div class="notif-time">${n.time}</div>
-    </div>
-  `).join('');
+  if(!notifications.length) { list.innerHTML='<div class="notif-empty">Nenhuma notificação</div>'; badge.style.display='none'; return; }
+  badge.style.display='flex'; badge.textContent=Math.min(notifications.length,9);
+  list.innerHTML=notifications.map(n=>'<div class="notif-item"><div class="notif-type">TRANCIA</div><div>'+n.msg+'</div><div class="notif-time">'+n.time+'</div></div>').join('');
 }
 
-function clearNotifs() {
-  notifications = [];
-  renderNotifs();
-}
+function clearNotifs() { notifications=[]; renderNotifs(); }
+function toggleNotif() { document.getElementById('notifPanel').classList.toggle('open'); }
 
-function toggleNotif() {
-  document.getElementById('notifPanel').classList.toggle('open');
-}
-
-// Request notification permission
-if (Notification.permission === 'default') {
-  Notification.requestPermission();
-}
-
-// Close modal on overlay click
-document.getElementById('modalOverlay').addEventListener('click', (e) => {
-  if (e.target === document.getElementById('modalOverlay')) closeModal();
+document.getElementById('modalOverlay').addEventListener('click', e => {
+  if(e.target===document.getElementById('modalOverlay')) closeModal();
 });
 
-// ─── INIT ────────────────────────────────────────────────
+if(Notification.permission==='default') Notification.requestPermission();
+
+// Init
 loadData();
 renderGrid();
 updateStats();
 
-// Listen for Firebase updates after modules load
-setTimeout(() => {
-  listenFirebase();
-}, 1500);
+// Start Firebase after modules load
+setTimeout(() => { startListening(); }, 2000);
 
 // Expose globals
-window.changeWeek = changeWeek;
-window.goToToday = goToToday;
-window.openModal = openModal;
-window.closeModal = closeModal;
-window.selectType = selectType;
-window.saveCell = saveCell;
-window.clearCell = clearCell;
-window.toggleNotif = toggleNotif;
-window.clearNotifs = clearNotifs;
+window.changeWeek=changeWeek; window.goToToday=goToToday;
+window.closeModal=closeModal; window.selectType=selectType;
+window.saveCell=saveCell; window.clearCell=clearCell;
+window.toggleNotif=toggleNotif; window.clearNotifs=clearNotifs;
 </script>
 
-</body>
-</html>
+
+</body></html>
